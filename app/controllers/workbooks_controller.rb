@@ -13,7 +13,13 @@ class WorkbooksController < ApplicationController
     end
   end
   
+  def index
+
+  end
+  
   def show
+    @workbook = Workbook.find(params[:id])
+    @workbook_items = @workbook.workbook_items
   end
   
   def edit

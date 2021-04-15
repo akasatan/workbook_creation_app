@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+.active {
+  display: inline;
+  background-color: white;
+  color: black;
+}
+
+.hidden_box {
+  color: blue;
+  background-color: blue;
+  display: inline;
+}
+
+.box {
+  margin: 3px 0;
+}

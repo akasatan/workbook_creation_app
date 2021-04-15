@@ -26,6 +26,19 @@ class WorkbookItemsController < ApplicationController
   end
   
   def show
+    @item = WorkbookItem.find(params[:id])
+    case @item.quiz_type_before_type_cast
+      when 1
+        redirect_to workbook_item_choose_quizzes_path(@item)
+      when 2
+        redirect_to new_writing_quiz_path(@item)
+      when 3
+        redirect_to new_word_quiz_item_path(@item)
+      when 4
+        redirect_to new_memo_path(@item)
+      else
+        redirect_to workbooks_path
+    end
   end
   
   def edit

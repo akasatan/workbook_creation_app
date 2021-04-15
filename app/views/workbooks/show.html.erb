@@ -1,0 +1,3 @@
+<% @workbook_items.each do |workbook_item| %>
+  <%= link_to workbook_item.name, workbook_item_path(workbook_item) %>
+<% end %>
