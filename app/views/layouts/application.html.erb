@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WorkbookCreationApp</title>
+    <title>自作問題集をつくろう！</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,14 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <div><%= link_to "マイページ", user_path(current_user) %></div>
+      <div><%= link_to "新しく問題集を作る", new_workbook_path %></div>
+      <%= link_to "ログアウトする", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "会員登録する", new_user_registration_path %>
+      <%= link_to "ログインする", new_user_session_path %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

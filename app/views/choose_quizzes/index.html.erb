@@ -1,0 +1,21 @@
+マルバツ問題
+<%= form_with model: [@item, @quiz], local: true do |f| %>
+<table>
+  <tr><td><%= f.hidden_field :workbook_item_id, value: @item.id %></td></tr>
+  <tr><td><%= f.label :quiz, "問題" %></td></tr>
+  <tr><td><%= f.text_area :quiz, rows: 5, cols: 60 %></td></tr>
+  <tr><td><%= f.label :judge, "正誤判定" %></td></tr>
+  <tr><td><%= f.radio_button :judge, :〇, default: 1 %><%= f.label :judge, "〇" %></td></tr>
+  <tr><td><%= f.radio_button :judge, :× %><%= f.label :judge, "×" %></td></tr>
+  <tr><td><%= f.label :explanation, "解説" %></td></tr>
+  <tr><td><%= f.text_area :explanation, rows: 5, cols: 60 %></td></tr>
+  
+  <td><%= f.submit "新規登録する" %><td></tr>
+</table>
+<% end %>
+
+<% @quizzes.each do |quiz| %>
+  <%= quiz.quiz %>
+  <%= quiz.judge %>
+  <%= quiz.explanation %>
+<% end %>

@@ -15,19 +15,18 @@ Rails.application.routes.draw do
   }
   resources :users, only: [:show, :edit, :update]
   
-  resources :workbooks do
-    member do
-      resources :workbook_items
+  resources :workbooks
+  resources :workbook_items do
+    resources :choose_quizzes
+    resources :writing_quizzes
+    resources :word_quizzes do
+      member do
+        resources :word_quiz_items
+      end
     end
   end
-  
-  resources :choose_quizzes
-  resources :writing_quizzes
-  resources :word_quizzes do
-    member do
-      resources :word_quiz_items
-    end
-  end
+
+  resources :memos
   
   get 'homes' => 'homes#top', as: 'top'
   

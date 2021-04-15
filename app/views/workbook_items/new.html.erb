@@ -1,0 +1,12 @@
+何の問題を作成しますか？
+
+<%= form_with model: @item, local: true do |f| %>
+<table>
+  <tr><td><%= f.collection_select :workbook_id, @workbooks, :id, :name %></td></tr>
+  <tr><td><%= f.select :quiz_type, WorkbookItem.quiz_types.keys %></td></tr>
+  <tr><td><%= f.label :name, "この項目の名前" %></td></tr>
+  <tr><td><%= f.text_area :name, rows: 5, cols: 60, placeholder: "難しめの問題！など入力してね" %></td></tr>
+  
+  <td><%= f.submit "作成する！" %><td></tr>
+</table>
+<% end %>
