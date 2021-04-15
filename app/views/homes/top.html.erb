@@ -2,7 +2,7 @@
 
 <%= link_to "会員登録する", new_user_registration_path %><br>
 
-
-
-
-<div>最新の投稿</div>
+<h4>最新の投稿たち</h4>
+<% @workbooks.each do |workbook| %>
+  <%= link_to workbook.name, workbook_path(workbook) %>
+<% end %>

@@ -32,6 +32,10 @@ class ChooseQuizzesController < ApplicationController
   def destroy
   end
   
+  def check
+    @quiz = ChooseQuiz.find(params[:id])
+  end
+  
   private
   def choose_quiz_params
     params.require(:choose_quiz).permit(:workbook_item_id, :quiz, :judge, :explanation)

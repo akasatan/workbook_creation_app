@@ -7,6 +7,7 @@ class WorkbooksController < ApplicationController
   def create
     @workbook = current_user.workbooks.new(workbook_params)
     if @workbook.save
+      session[:id] = @workbook.id
       redirect_to new_workbook_item_path
     else
       render :new

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :workbooks
   resources :workbook_items do
     resources :choose_quizzes
+    get 'choose_quizzes/:id/check' => 'choose_quizzes#check', as: 'choose_quizzes_check'
     resources :writing_quizzes
     resources :word_quizzes do
       member do

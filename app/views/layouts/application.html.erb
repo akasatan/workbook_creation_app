@@ -10,6 +10,7 @@
   </head>
 
   <body>
+    <%= link_to "ホームに戻る", top_path %>
     <% if user_signed_in? %>
       <div><%= link_to "マイページ", user_path(current_user) %></div>
       <div><%= link_to "新しく問題集を作る", new_workbook_path %></div>

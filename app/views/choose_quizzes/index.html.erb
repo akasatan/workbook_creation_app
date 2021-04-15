@@ -22,5 +22,6 @@
   <div class="box"><%= quiz.quiz %></div>
     <div class="hidden_box choose_quiz_<%= quiz.id %>"><%= quiz.judge %></div>
     <div class="hidden_box choose_quiz_<%= quiz.id %>"><%= quiz.explanation %></div>
+    <%= link_to "答えを見る", workbook_item_choose_quizzes_check_path(@item, quiz), remote: true %>
   </div>
 <% end %>

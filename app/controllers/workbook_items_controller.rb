@@ -2,10 +2,11 @@ class WorkbookItemsController < ApplicationController
   
   def new
     @item = WorkbookItem.new
-    @workbooks = Workbook.all
+    @workbook = Workbook.find(session[:id])
   end
   
   def create
+    session.delete(:id)
     @item = WorkbookItem.new(workbook_item_params)
     if @item.save
       case @item.quiz_type_before_type_cast
