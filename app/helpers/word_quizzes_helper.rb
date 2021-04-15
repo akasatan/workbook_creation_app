@@ -1,0 +1,2 @@
+module WordQuizzesHelper
+end

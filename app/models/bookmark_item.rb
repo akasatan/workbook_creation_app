@@ -1,0 +1,2 @@
+class BookmarkItem < ApplicationRecord
+end

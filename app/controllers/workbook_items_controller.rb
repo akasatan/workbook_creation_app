@@ -1,0 +1,2 @@
+class WorkbookItemsController < ApplicationController
+end

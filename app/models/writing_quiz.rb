@@ -1,0 +1,2 @@
+class WritingQuiz < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class WordQuizItem < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class WorkbookItem < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class WordQuizItemsController < ApplicationController
+end

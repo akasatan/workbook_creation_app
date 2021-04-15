@@ -1,0 +1,2 @@
+module WritingQuizzesHelper
+end

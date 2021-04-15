@@ -1,0 +1,2 @@
+class BookmarkItemsController < ApplicationController
+end
