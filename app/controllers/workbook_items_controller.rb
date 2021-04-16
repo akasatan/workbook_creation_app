@@ -1,54 +1,70 @@
 class WorkbookItemsController < ApplicationController
+  before_action :authenticate_user!, except: [:show]
   
   def new
-    @item = WorkbookItem.new
-    @workbook = Workbook.find(session[:id])
+    @workbook_item = WorkbookItem.new
+    @workbook = Workbook.find(params[:workbook_id])
   end
   
   def create
-    session.delete(:id)
-    @item = WorkbookItem.new(workbook_item_params)
-    if @item.save
-      case @item.quiz_type_before_type_cast
+    @workbook_item = WorkbookItem.new(workbook_item_params)
+    if @workbook_item.save
+      case @workbook_item.quiz_type_before_type_cast
       when 1
-        redirect_to new_workbook_item_choose_quiz_path(@item)
+        redirect_to workbook_item_choose_quizzes_path(@workbook_item)
       when 2
-        redirect_to new_writing_quiz_path(@item)
+        redirect_to workbook_item_writing_quizzes_path(@workbook_item)
       when 3
-        redirect_to new_word_quiz_item_path(@item)
+        redirect_to word_quiz_items_path(@workbook_item)
       when 4
-        redirect_to new_memo_path(@item)
+        redirect_to workbook_item_memos_path(@workbook_item)
       else
         render :new
       end
     else
+      @workbook_item = WorkbookItem.new
+      @workbook = Workbook.find(params[:workbook_id])
       render :new
     end
   end
   
   def show
-    @item = WorkbookItem.find(params[:id])
-    case @item.quiz_type_before_type_cast
+    workbook_item = WorkbookItem.find(params[:id])
+    case workbook_item.quiz_type_before_type_cast
       when 1
-        redirect_to workbook_item_choose_quizzes_path(@item)
+        redirect_to workbook_item_choose_quizzes_path(workbook_item)
       when 2
-        redirect_to new_writing_quiz_path(@item)
+        redirect_to workbook_item_writing_quizzes_path(workbook_item)
       when 3
-        redirect_to new_word_quiz_item_path(@item)
+        redirect_to word_quiz_items_path(workbook_item)
       when 4
-        redirect_to new_memo_path(@item)
+        redirect_to workbook_item_memos_path(workbook_item)
       else
-        redirect_to workbooks_path
+        redirect_to workbook_path(workbook_item.workbook)
     end
   end
   
   def edit
+    @workbook_item = WorkbookItem.find(params[:id])
+    @workbook = @workbook_item.workbook
   end
   
   def update
+    workbook_item = WorkbookItem.find(params[:id])
+    if workbook_item.update(workbook_item_params)
+      redirect_to workbook_path(workbook_item.workbook)
+    else
+      render :edit
+    end
   end
   
   def destroy
+    workbook_item = WorkbookItem.find(params[:id])
+    if workbook_item.destroy
+      redirect_to workbook_path(workbook_item.workbook)
+    else
+      redirect_back(fallback_location: root_path)
+    end
   end
   
   private

@@ -1,11 +1,22 @@
-<h3><%= @workbook.name %>の問題を作成中。。。</h3>
-<%= form_with model: @item, local: true do |f| %>
-<table>
-  <tr><td><%= f.hidden_field :workbook_id, value: @workbook.id %></td></tr>
-  <tr><td><%= f.select :quiz_type, WorkbookItem.quiz_types.keys %></td></tr>
-  <tr><td><%= f.label :name, "この項目の名前" %></td></tr>
-  <tr><td><%= f.text_area :name, rows: 5, cols: 60, placeholder: "難しめの問題！など入力してね" %></td></tr>
-  
-  <td><%= f.submit "作成する！" %><td></tr>
-</table>
+<div class="row mr-auto">
+  <div>
+    <%= link_to @workbook.name, user_path(@workbook.user) %>
+    <i class="fas fa-chevron-right"></i>
+    <i class="far fa-edit">項目を作成</i>
+    <i class="fas fa-chevron-right"></i>問題を作成
+  </div>
+</div>
+<%= render 'layouts/errors', obj: @workbook_item %>
+<%= form_with model: [@workbook, @workbook_item], local: true do |f| %>
+<div class="row justify-content-center my-2">
+  <%= f.hidden_field :workbook_id, value: @workbook.id %>
+</div>
+<%= f.select :quiz_type, WorkbookItem.quiz_types.keys,{}, class: "form-control" %>
+<div class="row justify-content-center my-2">
+  <%= f.label :name, "この項目の名前" %>
+</div>
+<%= f.text_area :name, rows: 5, placeholder: "○○の単語問題などと入力してね", class: "form-control" %>
+<div class="row justify-content-center my-2">
+  <%= f.submit "作成する！", class: "btn btn-info col-4 my-5" %>
+</div>
 <% end %>

@@ -1,8 +1,14 @@
-<h3>ようこそ</h3>
-
-<%= link_to "会員登録する", new_user_registration_path %><br>
-
-<h4>最新の投稿たち</h4>
+<div class="row my-3">
+  <h5>問題を自作したり、誰かの問題を解いたり出来ます。マルバツ問題以外は準備中</h5>
+</div>
+<% unless user_signed_in? %>
+  <div class="row">
+    <%= link_to "会員登録する", new_user_registration_path, class: "btn btn-outline-success mx-auto my-2" %>
+  </div>
+<% end %>
+<div class="row"><h4 class="mx-auto">最新の投稿された問題集</h4></div>
 <% @workbooks.each do |workbook| %>
-  <%= link_to workbook.name, workbook_path(workbook) %>
+<div class="row">
+  <%= link_to workbook.name, workbook_path(workbook), class: "book_index btn btn-outline-secondary p-3 my-2 col-10" %>
+</div>
 <% end %>

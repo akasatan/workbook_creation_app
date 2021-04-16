@@ -1,10 +1,29 @@
-<h4>マイページ</h4>
-
-  <%= @user.name %>さん
+<div class="row my-3">
+  <div class="mx-auto">
+    <% if @user == current_user %>
+      マイページ
+      <%= link_to "プロフィール編集", edit_user_path(current_user), class: "btn btn-sm btn-outline-secondary fas fa-edit" %>
+    <% else %>
+      <h4><%= @user.name %>さんのページ</h4>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <h4 class="mx-auto">プロフィール</h4>
+</div>
+<div class="row justify-content-center my-4 border border-primary">
   <%= @user.introduction %>
-  
-  <br>
-  <h4>作った問題集たち</h4>
-  <% @workbooks.each do |workbook| %>
-    <%= link_to workbook.name, workbook_path(workbook) %>
-  <% end %>
+  </div>
+<div class="row">
+  <h4 class="mx-auto">問題集一覧</h4>
+</div>
+<% @workbooks.each do |workbook| %>
+  <div class="row justify-content-center">
+      <%= link_to workbook_path(workbook), class: "book_index btn btn-outline-secondary p-3 my-2 col-10" do %>
+        <%= workbook.name %>
+        <% if @user == current_user %>
+          （<%= workbook.disclosure_range %>）
+        <% end %>
+      <% end %>
+  </div>
+<% end %>

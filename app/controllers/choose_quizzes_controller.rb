@@ -1,8 +1,9 @@
 class ChooseQuizzesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :check]
   
   def new
     @quiz = ChooseQuiz.new
-    @item = WorkbookItem.find(params[:workbook_item_id])
+    @workbook_item = WorkbookItem.find(params[:workbook_item_id])
   end
   
   def create
@@ -11,25 +12,46 @@ class ChooseQuizzesController < ApplicationController
       redirect_to workbook_item_choose_quizzes_path(@quiz.workbook_item)
     else
       @quiz = ChooseQuiz.new
-      @item = WorkbookItem.find(params[:workbook_item_id])
-      @quizzes = @item.choose_quizzes
+      @workbook_item = WorkbookItem.find(params[:workbook_item_id])
+      @quizzes = @workbook_item.choose_quizzes
+      @user = @workbook_item.workbook.user
       render :index
     end
   end
   
   def index
-    @item = WorkbookItem.find(params[:workbook_item_id])
-    @quizzes = @item.choose_quizzes
     @quiz = ChooseQuiz.new
+    @workbook_item = WorkbookItem.find(params[:workbook_item_id])
+    @quizzes = @workbook_item.choose_quizzes.order(id: "DESC")
+    @user = @workbook_item.workbook.user
   end
   
   def edit
+    @quiz = ChooseQuiz.find(params[:id])
+    @workbook_item = @quiz.workbook_item
   end
   
   def update
+    @quiz = ChooseQuiz.find(params[:id])
+    if @quiz.update(choose_quiz_params)
+      redirect_to workbook_item_Choose_quizzes_path(@quiz.workbook_item)
+    else
+      @quiz = ChooseQuiz.find(params[:id])
+      render :edit
+    end
   end
   
   def destroy
+    @quiz = ChooseQuiz.find(params[:id])
+    if @quiz.destroy
+      redirect_to workbook_item_choose_quizzes_path(@quiz.workbook_item)
+    else
+      @quiz = ChooseQuiz.new
+      @workbook_item = WorkbookItem.find(params[:workbook_item_id])
+      @quizzes = @workbook_item.choose_quizzes
+      @user = @workbook_item.workbook.user
+      render :index
+    end
   end
   
   def check

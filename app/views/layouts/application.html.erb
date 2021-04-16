@@ -12,6 +12,11 @@
 
   <body>
     <%= render 'layouts/header' %>
-    <%= yield %>
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, id: "notice" if msg.is_a?(String) %>
+    <% end %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

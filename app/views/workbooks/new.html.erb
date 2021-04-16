@@ -1,6 +1,23 @@
-<%= form_with model: @workbook , local: true do |f| %>
+<div class="row mr-auto">
+  <div>
+    <i class="far fa-edit">問題集の名前を決める</i>
+    <i class="fas fa-chevron-right"></i>
+    項目を作成
+    <i class="fas fa-chevron-right"></i>
+    問題を作成する
+  </div>
+</div>
+<%= render 'layouts/errors', obj: @workbook %>
+<%= form_with model: @workbook, local: true do |f| %>
+<div class="row justify-content-center my-2">
   <%= f.label :name, "問題集の名前" %>
-  <%= f.text_field :name %>
-  <%= f.select :disclosure_range, Workbook.disclosure_ranges.keys %>
-  <%= f.submit "作成する！" %>
+</div>
+<%= f.text_area :name, rows: 5, class: "form-control" %>
+<div class="row justify-content-center my-2">
+  <%= f.label :disclosure_range, "公開範囲" %>
+</div>
+<%= f.select :disclosure_range, Workbook.disclosure_ranges.keys,{}, class: "form-control" %>
+<div class="row justify-content-center my-2">
+  <%= f.submit "作成する！", class: "btn btn-info col-4 my-5" %>
+</div>
 <% end %>

@@ -1,3 +1,27 @@
+<div class="row mr-auto">
+  <div>
+    <%= link_to @workbook.name, user_path(@workbook.user) %>
+    <i class="fas fa-chevron-right"></i>
+    <i class="far fa-edit">問題集の詳細を表示</i>
+  </div>
+</div>
+<div class="row my-2 mr-auto">
+  <h3><%= @workbook.name %></h3>
+  <% if @workbook.user == current_user %>
+    <%= link_to "編集する", edit_workbook_path(@workbook), class: "btn btn-sm btn-outline-secondary fas fa-edit mx-2" %>
+  <% end %>
+</div>
+<div class="row my-2">
+  <h5 class="ml-auto">制作者<%= link_to @workbook.user.name, user_path(@workbook.user) %>さん</h5>
+</div>
+<div class="row my-2">
+  <h4 class="mx-auto">問題集の中身</h4>
+</div>
+<% if @workbook.user == current_user %>
+  <%= link_to "問題を追加する", new_workbook_workbook_item_path(@workbook) %>
+<% end %>
 <% @workbook_items.each do |workbook_item| %>
-  <%= link_to workbook_item.name, workbook_item_path(workbook_item) %>
+<div class="row">
+  <%= link_to workbook_item.name, workbook_item_path(workbook_item), class: "book_index btn btn-outline-secondary p-3 my-2 col-10" %>
+</div>
 <% end %>
