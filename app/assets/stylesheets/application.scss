@@ -13,6 +13,9 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap";
+ @import 'font-awesome-sprockets';
+ @import 'font-awesome';
 
 .active {
   display: inline;
@@ -30,4 +33,8 @@
 
 .box {
   margin: 3px 0;
+}
+
+.nav-item {
+  margin: 1em 0.5em 0.5em auto;
 }

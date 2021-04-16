@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+  <div class="container-fluid">
+    <%= link_to "ホーム", top_path, class: "navbar-brand fas fa-home text-light" %>
+    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to "マイページ", user_path(current_user), class: "nav-link text-light fas fa-user" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "新しく問題集を作る", new_workbook_path, class: "nav-link text-light fas fa-book-open" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "ログアウトする", destroy_user_session_path, method: :delete, class: "nav-link text-light fas fa-sign-out-alt" %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "会員登録する", new_user_registration_path, class: "nav-link text-light" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "ログインする", new_user_session_path, class: "nav-link text-light" %>
+        </li>
+      </ul>
+      <% end %>
+    </div>
+  </div>
+</nav>
