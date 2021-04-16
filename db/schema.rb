@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2021_04_15_015843) do
 
   create_table "workbook_items", force: :cascade do |t|
     t.integer "workbook_id"
-    t.integer "type"
+    t.integer "quiz_type"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -13,3 +13,52 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap";
+ @import 'font-awesome-sprockets';
+ @import 'font-awesome';
+
+.active {
+  display: inline;
+  background-color: white;
+  color: black;
+  z-index: 10;
+}
+
+.hidden_box {
+  color: gray;
+  background-color: gray;
+  display: inline;
+  z-index: 1;
+}
+
+.nav-item {
+  margin: 1em 0.5em 0.5em auto;
+}
+
+a.book_index, .book_index > a {
+  color: black;
+  text-align: center;
+  width: 12em;
+  margin: 0.4em auto;
+}
+
+.header {
+  background-color: #006888;
+}
+
+.row {
+  text-align: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 1400px) {
+  .only_smartphone {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .only_pc {
+    display: none;
+  }
+}

@@ -1,0 +1,34 @@
+<div class="row mr-auto">
+  <div>
+    <%= link_to @workbook_item.workbook.name, user_path(@workbook_item.workbook.user_id) %>
+    <i class="fas fa-chevron-right"></i>
+    <%= link_to @workbook_item.name, workbook_path(@workbook_item.workbook) %>
+    <i class="fas fa-chevron-right"></i>
+    <i class="far fa-edit"><%= @workbook_item.name %>の問題作成</i>
+  </div>
+</div>
+<div class="row justify-content-center my-2">
+  <%= link_to "前の画面に戻る", workbook_item_writing_quizzes_path(@workbook_item), class: "btn btn-secondary col-5 my-2" %>
+</div>
+<div class="row">
+  <h4 class="mx-auto"><%= @workbook_item.name %>の問題を編集します</h4>
+</div>
+<%= form_with model: @quiz, local: true do |f| %>
+<%= render 'layouts/errors', obj: f.object %>
+<div class="row justify-content-center my-2">
+  <%= f.hidden_field :workbook_item_id, value: @workbook_item.id %>
+  <%= f.label :quiz, "問題" %>
+</div>
+<div class="row justify-content-center my-2">
+  <%= f.text_area :quiz, rows: 5, class: "form-control col-10" %>
+</div>
+<div class="row justify-content-center my-2">
+  <%= f.label :correct_answer, "答え" %>
+</div>
+<div class="row justify-content-center my-2">
+  <%= f.text_area :correct_answer, rows: 5, class: "form-control col-10" %>
+</div>
+<div class="row justify-content-center my-2">
+  <%= f.submit "変更する", class: "btn btn-info col-10 my-2" %>
+</div>
+<% end %>

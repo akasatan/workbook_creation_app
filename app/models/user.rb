@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
   validates :name, uniqueness: true, presence: true
+  
+  has_many :workbooks, dependent: :nullify
 end

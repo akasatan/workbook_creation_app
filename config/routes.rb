@@ -13,20 +13,26 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     registrations: 'users/registrations'
   }
+  get '/users', to: redirect("/users/sign_up")
   resources :users, only: [:show, :edit, :update]
-  
-  resources :workbooks do
-    member do
-      resources :workbook_items
-    end
+
+  get '/workbooks', to: redirect("/workbooks/new")
+  get '/workbooks/:id/workbook_items', to: redirect("/workbooks")
+  resources :workbooks, shallow: true do
+    resources :workbook_items
   end
   
-  resources :choose_quizzes
-  resources :writing_quizzes
-  resources :word_quizzes do
-    member do
-      resources :word_quiz_items
+  resources :workbook_items, shallow: true do
+    resources :choose_quizzes
+    get 'choose_quizzes/:id/check' => 'choose_quizzes#check', as: 'choose_quizzes_check'
+    resources :writing_quizzes
+    get 'writing_quizzes/:id/check' => 'writing_quizzes#check', as: 'writing_quizzes_check'
+    resources :word_quizzes do
+      member do
+        resources :word_quiz_items
+      end
     end
+    resources :memos
   end
   
   get 'homes' => 'homes#top', as: 'top'

@@ -1,0 +1,19 @@
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+    <h2>問題集の題名部分編集</h2>
+      <%= form_with model: @workbook, local: true do |f| %>
+      <div class="row justify-content-center my-2">
+        <%= f.label :name, "問題集の名前" %>
+      </div>
+      <%= f.text_area :name, rows: 5, class: "form-control" %>
+      <div class="row justify-content-center my-2">
+        <%= f.label :disclosure_range, "公開範囲" %>
+      </div>
+      <%= f.select :disclosure_range, Workbook.disclosure_ranges.keys,{}, class: "form-control" %>
+      <div class="row justify-content-center my-2">
+        <%= f.submit "変更する", class: 'btn btn-success' %>
+      </div>
+    <% end %>
+  </div>
+</div>

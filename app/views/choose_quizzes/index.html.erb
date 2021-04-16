@@ -1,0 +1,68 @@
+<div class="row mr-auto">
+  <div>
+    <%= link_to @workbook_item.workbook.name, user_path(@user) %>
+    <i class="fas fa-chevron-right"></i>
+    <%= link_to @workbook_item.name, workbook_path(@workbook_item.workbook) %>
+    <i class="fas fa-chevron-right"></i>
+    <%= @workbook_item.name %>の問題一覧
+  </div>
+</div>
+<div class="row justify-content-between mx-3">
+  <h4><%= @workbook_item.name %></h4>
+  <% if @user == current_user %>
+  <div class="row">
+    <%= link_to "タイトル編集", edit_workbook_item_path(@workbook_item), class: "btn btn-sm btn-outline-success" %>
+    <%= link_to "問題項目ごと削除", workbook_item_path(@workbook_item), method: :delete, class: "btn btn-sm btn-outline-danger", data: {confirm: "削除すると元には戻せません。本当に消しますか？"} %>
+  </div>
+  <% end %>
+</div>
+<% if @user == current_user %>
+  <div class="row justify-content-center my-4 only_smartphone">
+  <%= link_to "下に問題を追加する", new_workbook_item_choose_quiz_path(@workbook_item), class: "btn btn-info col-10" %>
+  </div>
+  <div class="only_pc row justify-content-center my-5">
+  <%= form_with model: [@workbook_item, @quiz], local: true do |f| %>
+  <%= render 'layouts/errors', obj: f.object %>
+  <table>
+    <tr>
+      <td><%= f.hidden_field :workbook_item_id, value: @workbook_item.id %></td>
+      <td><%= f.label :quiz, "問題" %></td>
+      <td><%= f.text_area :quiz, rows: 3, cols: 40, class:"form-control" %></td>
+      <td>
+        <%= f.label :judge, "正誤判定" %><br>
+        <div class="col-sm-10 btn-group" data-toggle="buttons">
+          <label class="btn btn-outline-primary active">
+            <%= f.radio_button :judge, :〇, checked: true, class: "btn-check"%><%= f.label :judge, "〇" %>
+          </label>
+          <label class="btn btn-outline-danger">
+            <%= f.radio_button :judge, :×, class: "btn-check" %><%= f.label :judge, "×" %>
+          </label>
+        </div>
+      </td>
+      <td><%= f.label :explanation, "解説" %></td>
+      <td><%= f.text_area :explanation, rows: 3, cols: 40, class:"form-control" %></td>
+      
+      <td><%= f.submit "問題を追加する", class: "btn btn-info" %><td>
+    </tr>
+  </table>
+  <% end %>
+  </div>
+<% end %>
+<% @quizzes.each do |quiz| %>
+<div class="offset-2 justify-content-center my-2">
+  <div class="row">
+    <h4>問題　<%= quiz.quiz %></h4>
+  </div>
+  <div class="row">
+    <%= link_to "答えを見る", workbook_item_choose_quizzes_check_path(@workbook_item, quiz), remote: true, class: "btn btn-sm btn-primary mb-2 col-4" %>
+    <% if user_signed_in? && @user == current_user %>
+      <%= link_to "編集", edit_choose_quiz_path(quiz), class: "btn btn-sm btn-success col-2 offset-3" %>
+      <%= link_to "削除", choose_quiz_path(quiz), method: :delete, class: "btn btn-sm btn-danger col-2", data: {confirm: "削除すると元には戻せません。本当に消しますか？"} %>
+    <% end %>
+  </div>
+  <div class="row">
+    <h4 class="hidden_box choose_quiz_<%= quiz.id %>"><%= quiz.judge %></h4>
+    <h4 class="hidden_box choose_quiz_<%= quiz.id %>"><%= quiz.explanation %></h4>
+  </div>
+</div>
+<% end %>
