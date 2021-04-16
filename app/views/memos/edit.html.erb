@@ -1,0 +1,22 @@
+<div class="row m-2">
+  <div>
+    <%= link_to @workbook_item.workbook.name, user_path(@workbook_item.workbook.user) %>
+    <i class="fas fa-chevron-right"></i>
+    <%= link_to @workbook_item.name, workbook_path(@workbook_item.workbook) %>
+    <i class="fas fa-chevron-right"></i>
+    <i class="far fa-edit"><%= @workbook_item.name %>のメモを編集しています。</i>
+  </div>
+</div>
+<%= form_with model: @memo, local: true do |f| %>
+<%= render 'layouts/errors', obj: f.object %>
+  <div class="row justify-content-center my-2">
+    <%= f.hidden_field :workbook_item_id, value: @workbook_item.id %>
+    <%= f.label :text, "メモ" %>
+  </div>
+  <div class="row justify-content-center my-2">
+    <%= f.text_area :text, rows: 5, class: "form-control col-10" %>
+  </div>
+  <div class="row justify-content-center my-2">
+    <%= f.submit "変更する", class: "btn btn-info" %><td>
+  </div>
+<% end %>
