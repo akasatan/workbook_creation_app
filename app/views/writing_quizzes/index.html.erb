@@ -1,4 +1,4 @@
-<div class="row mr-auto">
+<div class="row m-2">
   <div>
     <%= link_to @workbook_item.workbook.name, user_path(@user) %>
     <i class="fas fa-chevron-right"></i>
@@ -38,14 +38,15 @@
   </div>
 <% end %>
 <% @quizzes.each do |quiz| %>
-<div class="offset-2 justify-content-center my-2">
+<div class="justify-content-center my-2">
   <div class="row">
     <h4>問題　<%= quiz.quiz %></h4>
   </div>
+  <input class="form-control my-2", placeholder="答え記入欄。送信は出来ません。">
   <div class="row">
     <%= link_to "答えを見る", workbook_item_writing_quizzes_check_path(@workbook_item, quiz), remote: true, class: "btn btn-sm btn-primary mb-2 col-4" %>
     <% if user_signed_in? && @user == current_user %>
-      <%= link_to "編集", edit_writing_quiz_path(quiz), class: "btn btn-sm btn-success col-2 offset-3" %>
+      <%= link_to "編集", edit_writing_quiz_path(quiz), class: "btn btn-sm btn-success col-2 offset-4" %>
       <%= link_to "削除", writing_quiz_path(quiz), method: :delete, class: "btn btn-sm btn-danger col-2", data: {confirm: "削除すると元には戻せません。本当に消しますか？"} %>
     <% end %>
   </div>
